@@ -46,3 +46,14 @@ Vote email addresses and comments are stored in tables with no public table acce
 ```sh
 npm run build
 ```
+
+## Deploy the website to Vercel
+
+Import the GitHub repository into Vercel. Vercel's Vite defaults should detect the project; if needed, use:
+
+- Framework preset: Vite
+- Build command: `npm run build`
+- Output directory: `dist`
+- Root directory: repository root
+
+Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the Vercel project's Environment Variables, then redeploy. These browser-visible values are only for the public Supabase client. Never add the Supabase service-role key or Resend API key to Vercel; configure those as Supabase Edge Function secrets as shown above.
