@@ -1,11 +1,17 @@
 import imageOne from "../images/Image1.jpg";
 import logo from "../images/logo.jpg";
+import sponsor3Image from "../images/Sponsor3.jpg";
+import sponsor4Image from "../images/Sponsor4.jpg";
 import advert1Image from "../images/1stadvert.jpg";
 import advert2Image from "../images/2ndadvert.png";
 import advert3Image from "../images/3ndadvert.jpg";
 import advert4Image from "../images/4thadvert.jpg";
 import advert5Image from "../images/5thadvert.jpg";
 import advert6Video from "../videos/6thadvert.mp4";
+import sponsor1Video from "../videos/Sponsor1.mp4";
+import sponsor2Video from "../videos/Sponsor2.mp4";
+import sponsor5Video from "../videos/Sponsor5.mp4";
+import sponsor6Video from "../videos/Sponsor6.mp4";
 import "./style.css";
 
 type Nominee = {
@@ -111,7 +117,58 @@ const adverts: Advert[] = [
   },
 ];
 
-const sponsors = Array.from({ length: 10 }, (_, index) => index + 1);
+type Sponsor = {
+  name: string;
+  media: string;
+  mediaType: "image" | "video";
+  linkLabel: "WhatsApp" | "TikTok";
+  link: string;
+};
+
+const sponsors: Sponsor[] = [
+  {
+    name: "Youngcity Collection",
+    media: sponsor1Video,
+    mediaType: "video",
+    linkLabel: "WhatsApp",
+    link: "https://wa.me/+2348095019114",
+  },
+  {
+    name: "Sips by Cee",
+    media: sponsor2Video,
+    mediaType: "video",
+    linkLabel: "WhatsApp",
+    link: "https://wa.me/+2348161888051",
+  },
+  {
+    name: "chinecherem nwa aba",
+    media: sponsor3Image,
+    mediaType: "image",
+    linkLabel: "TikTok",
+    link: "https://www.tiktok.com/@neche_omaa?_r=1&_t=ZS-9AK9KVG4GPv",
+  },
+  {
+    name: "Abia Echoes",
+    media: sponsor4Image,
+    mediaType: "image",
+    linkLabel: "TikTok",
+    link: "https://www.tiktok.com/@urbanechoe?_r=1&_t=ZS-9AK9WjKfSiN",
+  },
+  {
+    name: "Dominic Fabrics",
+    media: sponsor5Video,
+    mediaType: "video",
+    linkLabel: "WhatsApp",
+    link: "https://wa.me/+2347042885571",
+  },
+  {
+    name: "GUDI",
+    media: sponsor6Video,
+    mediaType: "video",
+    linkLabel: "WhatsApp",
+    link: "https://wa.me/+2348163038593",
+  },
+];
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL?.replace(/\/$/, "") ?? "";
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY ?? "";
 const supabaseReady = Boolean(supabaseUrl && supabaseAnonKey);
@@ -162,23 +219,26 @@ const nomineeCards = nominees
   .join("");
 
 const sponsorCards = sponsors
-  .map(
-    (number) => `
+  .map((sponsor, index) => `
       <article class="sponsor-card">
-        <div class="sponsor-video-placeholder" role="img" aria-label="Sponsor ${number} video will be added">
-          <span class="play-mark" aria-hidden="true">▶</span>
-          <span>Sponsor video coming soon</span>
+        <div class="sponsor-media">
+          ${
+            sponsor.mediaType === "video"
+              ? `<video class="sponsor-video" src="${sponsor.media}" controls playsinline preload="metadata" aria-label="${sponsor.name} sponsor video"></video>`
+              : `<img class="sponsor-image" src="${sponsor.media}" alt="${sponsor.name} sponsor promotion" />`
+          }
         </div>
         <div class="sponsor-card-copy">
           <div>
-            <p class="eyebrow">Proud sponsor ${String(number).padStart(2, "0")}</p>
-            <h2>Sponsor ${String(number).padStart(2, "0")}</h2>
+            <p class="eyebrow">Proud sponsor ${String(index + 1).padStart(2, "0")}</p>
+            <h2>${sponsor.name}</h2>
           </div>
-          <span class="contact-pending">WhatsApp link coming soon</span>
+          <a class="sponsor-contact" href="${sponsor.link}" target="_blank" rel="noreferrer noopener">
+            ${sponsor.linkLabel}
+          </a>
         </div>
       </article>
-    `,
-  )
+    `)
   .join("");
 
 const advertCards = adverts
@@ -247,7 +307,7 @@ app.innerHTML = `
         <div class="sponsor-grid">${sponsorCards}</div>
         <div class="page-end-cta">
           <p class="eyebrow">The moment you've been waiting for</p>
-          <a class="button button-gold" href="#main-event">Click here for the main event <span aria-hidden="true">→</span></a>
+          <a class="button button-gold" href="#main-event">Click here to vote <span aria-hidden="true">→</span></a>
         </div>
         ${footer()}
       </div>
@@ -259,7 +319,7 @@ app.innerHTML = `
         <div class="event-intro">
           <img src="${logo}" alt="Role of the Year Awards logo" />
           <p class="eyebrow">Role of the Year Awards 2026</p>
-          <h1 id="event-title">LET'S GET THE<br /><span>VOTING STARTED</span></h1>
+          <h1 id="event-title">Voting <span>Poll</span></h1>
           <p>Watch the nominees and cast your one vote. Your email stays private.</p>
         </div>
         <div class="nominee-list">${nomineeCards}</div>

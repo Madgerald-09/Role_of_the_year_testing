@@ -307,8 +307,10 @@ button:disabled {
 
 .sponsor-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 1040px);
+  grid-template-columns: minmax(0, 1fr);
   gap: 20px;
+  margin-inline: auto;
 }
 
 .sponsor-card,
@@ -319,7 +321,7 @@ button:disabled {
   background: rgba(20, 15, 10, 0.55);
 }
 
-.sponsor-video-placeholder,
+.sponsor-media,
 .nominee-video-placeholder {
   display: grid;
   min-height: 230px;
@@ -334,6 +336,32 @@ button:disabled {
   letter-spacing: 1.6px;
   text-align: center;
   text-transform: uppercase;
+}
+
+.sponsor-media {
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #050505;
+}
+
+.sponsor-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(90svh, 1000px);
+  background: #050505;
+  object-fit: contain;
+}
+
+.sponsor-image {
+  display: block;
+  width: 100%;
+  height: min(64svh, 560px);
+  background: #050505;
+  object-fit: contain;
 }
 
 .play-mark {
@@ -368,10 +396,25 @@ button:disabled {
   font-weight: 500;
 }
 
-.contact-pending {
-  color: var(--muted-gold);
+.sponsor-contact {
+  display: inline-flex;
+  min-height: 40px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  border: 1px solid rgba(212, 185, 150, 0.5);
+  color: var(--gold);
   font-size: 10px;
   text-align: right;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sponsor-contact:hover {
+  background: rgba(212, 185, 150, 0.1);
+  border-color: var(--gold);
 }
 
 .page-end-cta {
@@ -795,18 +838,22 @@ textarea::placeholder {
     gap: 14px;
   }
 
-  .sponsor-video-placeholder {
-    min-height: 210px;
-  }
-
   .sponsor-card-copy,
   .nominee-card-copy {
     align-items: flex-start;
     flex-direction: column;
   }
 
-  .contact-pending {
-    text-align: left;
+  .sponsor-video {
+    max-height: 80svh;
+  }
+
+  .sponsor-image {
+    height: min(58svh, 420px);
+  }
+
+  .sponsor-contact {
+    align-self: stretch;
   }
 
   .nominee-video-placeholder {

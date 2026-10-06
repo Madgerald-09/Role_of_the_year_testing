@@ -37,8 +37,8 @@ Vote email addresses and comments are stored in tables with no public table acce
 ## Content still to add
 
 - The existing media directory has nominee posters, but no nominee video clips. Nominee cards currently show a video placeholder without displaying the nominee photos.
-- There are no sponsor video files or sponsor WhatsApp contacts yet. The sponsor page reserves ten numbered slots for those details.
-- Add the official TikTok profile URL to the prompt before the advertisements once it is available.
+- The six sponsor entries have been added with the supplied videos/images and WhatsApp/TikTok links.
+- Add the official awards TikTok profile URL to the prompt before the advertisements once it is available.
 - The current advertisements remain in the final section. They include the existing six advertiser entries.
 
 ## Production build
