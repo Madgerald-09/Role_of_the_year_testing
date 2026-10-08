@@ -308,7 +308,7 @@ app.innerHTML = `
             <form class="comment-form" id="comment-form">
               <p class="eyebrow">Your voice matters</p>
               <h2 id="community-title">Leave a comment</h2>
-              <label for="comment-text">Share a message or suggestion anonymously</label>
+              <label for="comment-text">Share a message or suggestion anonymously. Comments are public, so don't include personal information.</label>
               <textarea id="comment-text" name="comment" rows="5" maxlength="2000" required placeholder="Write your message here..."></textarea>
               <button class="button button-outline" type="submit">Send comment</button>
               <p class="form-feedback" id="comment-feedback" role="status" aria-live="polite"></p>
@@ -320,6 +320,12 @@ app.innerHTML = `
               <ol class="results-list" id="results-list"></ol>
             </section>
           </div>
+          <section class="comments-panel" aria-labelledby="comments-title">
+            <p class="eyebrow">Community messages</p>
+            <h2 id="comments-title">What people are saying</h2>
+            <p class="comments-note" id="comments-note" role="status" aria-live="polite">Loading comments…</p>
+            <ol class="comments-list" id="comments-list"></ol>
+          </section>
           <div class="page-end-cta">
             <p class="eyebrow">Keep the celebration going</p>
             <button class="button button-gold" id="open-tiktok" type="button">Follow us on TikTok & explore our adverts <span aria-hidden="true">→</span></button>
@@ -384,6 +390,8 @@ const commentFeedback =
 const siteFeedback = document.querySelector<HTMLParagraphElement>("#site-feedback");
 const resultsList = document.querySelector<HTMLOListElement>("#results-list");
 const resultsNote = document.querySelector<HTMLParagraphElement>("#results-note");
+const commentsList = document.querySelector<HTMLOListElement>("#comments-list");
+const commentsNote = document.querySelector<HTMLParagraphElement>("#comments-note");
 const voteCandidate =
   document.querySelector<HTMLParagraphElement>("#vote-candidate");
 let selectedNominee: Nominee | undefined;
@@ -502,6 +510,7 @@ commentForm?.addEventListener("submit", async (event) => {
         ? "Your comment was received, but the email notification could not be sent."
         : "Thank you. Your anonymous comment has been sent.",
     );
+    await loadPublicComments();
   } catch (error) {
     showFeedback(
       commentFeedback,
@@ -511,6 +520,93 @@ commentForm?.addEventListener("submit", async (event) => {
     if (submitButton) submitButton.disabled = false;
   }
 });
+
+type PublicComment = {
+  comment: string;
+  created_at: string;
+};
+
+const isPublicComment = (value: unknown): value is PublicComment => {
+  if (!value || typeof value !== "object") return false;
+  const comment = value as Record<string, unknown>;
+  return (
+    typeof comment.comment === "string" &&
+    typeof comment.created_at === "string" &&
+    !Number.isNaN(Date.parse(comment.created_at))
+  );
+};
+
+const renderPublicComments = (comments: PublicComment[]) => {
+  if (!commentsList) return;
+  commentsList.replaceChildren();
+
+  for (const comment of comments) {
+    const item = document.createElement("li");
+    item.className = "comment-item";
+
+    const time = document.createElement("time");
+    time.className = "comment-date";
+    time.dateTime = comment.created_at;
+    time.textContent = new Intl.DateTimeFormat(undefined, {
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(new Date(comment.created_at));
+
+    const message = document.createElement("p");
+    message.className = "comment-message";
+    message.textContent = comment.comment;
+
+    item.append(time, message);
+    commentsList.append(item);
+  }
+};
+
+const loadPublicComments = async () => {
+  if (!commentsNote || !commentsList) return;
+  if (!supabaseReady) {
+    commentsNote.textContent =
+      "Community comments will appear here once the voting service is connected.";
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${supabaseUrl}/rest/v1/rpc/get_public_award_comments`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: supabaseAnonKey,
+          Authorization: `Bearer ${supabaseAnonKey}`,
+        },
+        body: "{}",
+      },
+    );
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Error(
+          "Comments are not enabled in Supabase yet. Apply supabase/migrations/20261008170000_public_award_comments.sql in your Supabase project's SQL Editor.",
+        );
+      }
+      throw new Error(`Community comments request failed (${response.status}).`);
+    }
+    const comments = (await response.json()) as unknown;
+    if (!Array.isArray(comments) || !comments.every(isPublicComment)) {
+      throw new Error("The comments service returned an invalid response.");
+    }
+
+    renderPublicComments(comments);
+    commentsNote.textContent =
+      comments.length === 0
+        ? "No comments yet. Be the first to share a message."
+        : "Recent comments are shown anonymously.";
+  } catch (error) {
+    commentsNote.textContent =
+      error instanceof Error
+        ? `${error.message} Comments will retry automatically.`
+        : "Community comments could not be loaded. Comments will retry automatically.";
+  }
+};
 
 const renderVoteResults = (
   totals: { nominee_id: number; total_votes: number; percentage: number }[],
@@ -591,4 +687,10 @@ if (window.location.hash) {
 window.scrollTo(0, 0);
 
 void loadVoteResults();
-if (supabaseReady) window.setInterval(() => void loadVoteResults(), 15000);
+void loadPublicComments();
+if (supabaseReady) {
+  window.setInterval(() => {
+    void loadVoteResults();
+    void loadPublicComments();
+  }, 15000);
+}

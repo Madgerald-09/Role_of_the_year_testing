@@ -501,7 +501,8 @@ button:disabled {
 }
 
 .comment-form,
-.results-panel {
+.results-panel,
+.comments-panel {
   display: grid;
   align-content: start;
   gap: 13px;
@@ -511,7 +512,8 @@ button:disabled {
 }
 
 .comment-form h2,
-.results-panel h2 {
+.results-panel h2,
+.comments-panel h2 {
   margin: 0;
   color: var(--paper);
   font-family: "Playfair Display", Georgia, serif;
@@ -563,6 +565,50 @@ textarea::placeholder {
   color: rgba(244, 240, 232, 0.58);
   font-size: 11px;
   line-height: 1.5;
+}
+
+.comments-panel {
+  margin-top: 20px;
+}
+
+.comments-note {
+  min-height: 18px;
+  margin: -5px 0 0;
+  color: rgba(244, 240, 232, 0.58);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.comments-list {
+  display: grid;
+  gap: 13px;
+  max-height: 520px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.comment-item {
+  display: grid;
+  gap: 7px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  background: rgba(9, 9, 8, 0.45);
+}
+
+.comment-date {
+  color: var(--muted-gold);
+  font-size: 10px;
+}
+
+.comment-message {
+  margin: 0;
+  color: rgba(244, 240, 232, 0.86);
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }
 
 .results-list {

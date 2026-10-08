@@ -14,7 +14,7 @@ The local site runs in display-only mode until the Supabase settings are added t
 
 ## Enable voting, results, and email
 
-1. Create a Supabase project and apply `supabase/migrations/20261005215000_award_voting.sql` in the Supabase SQL editor (or with the Supabase CLI).
+1. Create a Supabase project and apply the SQL migrations in `supabase/migrations/` in the Supabase SQL editor (or with the Supabase CLI).
 2. Copy the project URL and anon key into `.env.local`:
 
    ```dotenv
@@ -32,7 +32,9 @@ The local site runs in display-only mode until the Supabase settings are added t
    The function uses Supabase's `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` secrets, which Supabase provides to Edge Functions. Vote and anonymous comment notifications are delivered to `madgerald2009@gmail.com`.
 4. Restart the Vite server after setting `.env.local`.
 
-Vote email addresses and comments are stored in tables with no public table access. The database enforces that each normalized email address can vote for only one nominee. The public results function exposes only nominee totals and percentages. Keep `.env.local` and all service-role/Resend credentials private; only the anon key belongs in the Vite environment.
+Vote email addresses and comments are stored in tables with no public table access. The database enforces that each normalized email address can vote for only one nominee. Public functions expose only vote totals and the 50 most recent anonymous comment texts and timestamps; comments are visible to all site visitors, so users should not include personal information. Keep `.env.local` and all service-role/Resend credentials private; only the anon key belongs in the Vite environment.
+
+If the comments section reports a 404, the comments migration has not been applied to the connected Supabase project. Run `supabase/migrations/20261008170000_public_award_comments.sql` in that project's SQL Editor; it also requests a PostgREST schema-cache refresh. The comments list retries automatically.
 
 ## Content still to add
 
