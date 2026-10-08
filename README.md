@@ -29,7 +29,7 @@ The local site runs in display-only mode until the Supabase settings are added t
    supabase secrets set RESEND_API_KEY=YOUR_RESEND_API_KEY RESEND_FROM_EMAIL=awards@YOUR_VERIFIED_DOMAIN
    ```
 
-   The function uses Supabase's `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` secrets, which Supabase provides to Edge Functions. Vote and anonymous comment notifications are delivered to `iammadgerald@gmail.com`.
+   The function uses Supabase's `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` secrets, which Supabase provides to Edge Functions. Vote and anonymous comment notifications are delivered to `madgerald2009@gmail.com`.
 4. Restart the Vite server after setting `.env.local`.
 
 Vote email addresses and comments are stored in tables with no public table access. The database enforces that each normalized email address can vote for only one nominee. The public results function exposes only nominee totals and percentages. Keep `.env.local` and all service-role/Resend credentials private; only the anon key belongs in the Vite environment.
@@ -39,7 +39,7 @@ Vote email addresses and comments are stored in tables with no public table acce
 - Nominee cards use the ten video clips in `videos/Nominee1vid.mp4` through `videos/Nominee10vid.mp4`.
 - The six sponsor entries have been added with the supplied videos/images and WhatsApp/TikTok links.
 - Add the official awards TikTok profile URL to the prompt before the advertisements once it is available.
-- The current advertisements remain in the final section. They include the existing six advertiser entries.
+- The final advertisement section currently includes Brightz Concept, Gerald, and Dominic Fabrics.
 
 ## Production build
 

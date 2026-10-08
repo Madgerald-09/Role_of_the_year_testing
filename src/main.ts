@@ -4,9 +4,6 @@ import sponsor3Image from "../images/Sponsor3.jpg";
 import sponsor4Image from "../images/Sponsor4.jpg";
 import advert1Image from "../images/1stadvert.jpg";
 import advert2Image from "../images/2ndadvert.png";
-import advert3Image from "../images/3ndadvert.jpg";
-import advert4Image from "../images/4thadvert.jpg";
-import advert5Image from "../images/5thadvert.jpg";
 import advert6Video from "../videos/6thadvert.mp4";
 import sponsor1Video from "../videos/Sponsor1.mp4";
 import sponsor2Video from "../videos/Sponsor2.mp4";
@@ -80,40 +77,6 @@ const adverts: Advert[] = [
       { label: "WhatsApp", href: "https://wa.me/+2348022720944" },
       { label: "Website", href: "https://geraldportfolio-one.vercel.app/" },
     ],
-  },
-  {
-    title: "Ada Daddy Interior Design",
-    subtitle: "Bedding & Curtains Specialist",
-    media: advert3Image,
-    mediaType: "image",
-    points: [
-      "Duvet sets, duvet covers, bedsheets, pillows, and different types of curtains.",
-      "Chisco Plaza, School Road by Mosque, Aba, Abia State.",
-    ],
-    links: [{ label: "WhatsApp", href: "https://wa.me/+2349134686313" }],
-  },
-  {
-    title: "Deals on Men Wear",
-    subtitle: "Senator • Suit • Trouser • Ise Agu • Shirt • Jalabia • Etibo",
-    media: advert4Image,
-    mediaType: "image",
-    points: [
-      "Premium men’s fashion and tailoring essentials for quality, comfort, and style.",
-      "Custom-made and ready-to-wear pieces for everyday elegance.",
-    ],
-    links: [],
-  },
-  {
-    title: "Clinton's Couture Tailor",
-    subtitle:
-      "Fabric Materials • Senator • Suit • Crepes • Ise Agu • Jalabia • Etibo",
-    media: advert5Image,
-    mediaType: "image",
-    points: [
-      "A wide range of fabric materials, including senator, suit, crepe, ise agu, mecado, jalabia, dulchese, and etibo.",
-      "Worldwide delivery.",
-    ],
-    links: [{ label: "WhatsApp", href: "https://wa.me/message/B6FLKTSJTPDEM1" }],
   },
   {
     title: "Dominic Fabrics",
@@ -300,7 +263,7 @@ app.innerHTML = `
             <p class="eyebrow">A celebration of excellence</p>
             <h1 id="welcome-title">Welcome to the<br /><span>Role of the Year</span><br />Award</h1>
             <p class="welcome-year">2026</p>
-            <a class="button button-gold welcome-cta" href="#sponsors">
+            <a class="button button-gold welcome-cta" href="#main-event">
               Check out our nominees <span aria-hidden="true">↗</span>
             </a>
           </div>
@@ -336,7 +299,7 @@ app.innerHTML = `
         <div class="event-intro">
           <img src="${logo}" alt="Role of the Year Awards logo" />
           <p class="eyebrow">Role of the Year Awards 2026</p>
-          <h1 id="event-title">Voting <span>Poll</span></h1>
+          <h1 id="event-title">LET'S GET THE <span>VOTING STARTED</span></h1>
           <p>Watch the nominees and choose one nominee to vote for. Your email stays private.</p>
         </div>
         <div class="nominee-list">${nomineeCards}</div>
@@ -371,7 +334,7 @@ app.innerHTML = `
         ${header()}
         <div class="section-intro adverts-intro">
           <p class="eyebrow">Our partners</p>
-          <h1 id="adverts-title">Meet our <span>advertisers</span></h1>
+          <h1 id="adverts-title">Advertisement Page</h1>
         </div>
         <div class="advert-list">${advertCards}</div>
         <div class="page-end-cta">
