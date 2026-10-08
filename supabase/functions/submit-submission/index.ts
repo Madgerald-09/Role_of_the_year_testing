@@ -31,7 +31,7 @@ Deno.serve(async (request) => {
   }
 
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
-  const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  const serviceRoleKey = Deno.env.get("SERVICE_ROLE_KEY");
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
   const senderEmail = Deno.env.get("RESEND_FROM_EMAIL");
   if (!supabaseUrl || !serviceRoleKey || !resendApiKey || !senderEmail) {
@@ -54,10 +54,7 @@ Deno.serve(async (request) => {
     submission.nomineeId <= 10
   ) {
     const email = submission.email.trim().toLowerCase();
-    if (
-      email.length > 320 ||
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-    ) {
+    if (email.length > 320 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return jsonResponse(400, { error: "Enter a valid email address." });
     }
 
@@ -84,19 +81,16 @@ Deno.serve(async (request) => {
     return jsonResponse(400, { error: "Invalid submission." });
   }
 
-  const databaseResponse = await fetch(
-    `${supabaseUrl}/rest/v1/${table}`,
-    {
-      method: "POST",
-      headers: {
-        apikey: serviceRoleKey,
-        Authorization: `Bearer ${serviceRoleKey}`,
-        "Content-Type": "application/json",
-        Prefer: "return=minimal",
-      },
-      body: JSON.stringify(row),
+  const databaseResponse = await fetch(`${supabaseUrl}/rest/v1/${table}`, {
+    method: "POST",
+    headers: {
+      apikey: serviceRoleKey,
+      Authorization: `Bearer ${serviceRoleKey}`,
+      "Content-Type": "application/json",
+      Prefer: "return=minimal",
     },
-  );
+    body: JSON.stringify(row),
+  });
   if (!databaseResponse.ok) {
     const details = await databaseResponse.text();
     if (
@@ -105,7 +99,7 @@ Deno.serve(async (request) => {
       details.includes("award_votes_email_unique")
     ) {
       return jsonResponse(409, {
-        error: "This email has already voted. Each email can vote only once.",
+        error: "This email has already voted for a nominee. Each email can vote for only one nominee.",
       });
     }
     console.error("Unable to save submission:", details);
@@ -122,13 +116,16 @@ Deno.serve(async (request) => {
     },
     body: JSON.stringify({
       from: senderEmail,
-      to: ["iammadgerald@gmail.com"],
+      to: ["madgerald2009@gmail.com"],
       subject,
       text,
     }),
   });
   if (!emailResponse.ok) {
-    console.error("Submission was saved, but its email notification failed:", await emailResponse.text());
+    console.error(
+      "Submission was saved, but its email notification failed:",
+      await emailResponse.text(),
+    );
     return jsonResponse(201, {
       accepted: true,
       emailSent: false,

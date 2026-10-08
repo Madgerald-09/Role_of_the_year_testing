@@ -12,24 +12,35 @@ import sponsor1Video from "../videos/Sponsor1.mp4";
 import sponsor2Video from "../videos/Sponsor2.mp4";
 import sponsor5Video from "../videos/Sponsor5.mp4";
 import sponsor6Video from "../videos/Sponsor6.mp4";
+import nominee1Video from "../videos/Nominee1vid.mp4";
+import nominee2Video from "../videos/Nominee2vid.mp4";
+import nominee3Video from "../videos/Nominee3vid.mp4";
+import nominee4Video from "../videos/Nominee4vid.mp4";
+import nominee5Video from "../videos/Nominee5vid.mp4";
+import nominee6Video from "../videos/Nominee6vid.mp4";
+import nominee7Video from "../videos/Nominee7vid.mp4";
+import nominee8Video from "../videos/Nominee8vid.mp4";
+import nominee9Video from "../videos/Nominee9vid.mp4";
+import nominee10Video from "../videos/Nominee10vid.mp4";
 import "./style.css";
 
 type Nominee = {
   id: number;
   name: string;
+  video: string;
 };
 
 const nominees: Nominee[] = [
-  { id: 1, name: "Nwokolo Chidera David" },
-  { id: 2, name: "Treasure Amarachi" },
-  { id: 3, name: "Prince Chibueze Onyekachi" },
-  { id: 4, name: "Emmanuel Peace Kelechi" },
-  { id: 5, name: "Precious Chinaza Onyema" },
-  { id: 6, name: "Emmanuel Michael Chigozirim" },
-  { id: 7, name: "Enioluwa" },
-  { id: 8, name: "Amaku Michael" },
-  { id: 9, name: "Joseph" },
-  { id: 10, name: "Elijah Goodswill" },
+  { id: 1, name: "David Nwokolo", video: nominee1Video },
+  { id: 2, name: "Treasure Amarachi", video: nominee2Video },
+  { id: 3, name: "Prince Chibueze Onyekachi", video: nominee3Video },
+  { id: 4, name: "Emmanuel Peace Kelechi", video: nominee4Video },
+  { id: 5, name: "Precious Chinaza Onyema", video: nominee5Video },
+  { id: 6, name: "Emmanuel Michael Chigozirim", video: nominee6Video },
+  { id: 7, name: "Enioluwa", video: nominee7Video },
+  { id: 8, name: "Amaku Michael", video: nominee8Video },
+  { id: 9, name: "Elijah Godswill", video: nominee9Video },
+  { id: 10, name: "Joseph", video: nominee10Video },
 ];
 
 type Advert = {
@@ -200,9 +211,15 @@ const nomineeCards = nominees
   .map(
     (nominee) => `
       <article class="nominee-card">
-        <div class="nominee-video-placeholder" role="img" aria-label="Video for ${nominee.name} will be added">
-          <span class="play-mark" aria-hidden="true">▶</span>
-          <span>Nominee video coming soon</span>
+        <div class="nominee-video-frame">
+          <video
+            class="nominee-video"
+            src="${nominee.video}"
+            controls
+            playsinline
+            preload="metadata"
+            aria-label="${nominee.name} nominee video"
+          ></video>
         </div>
         <div class="nominee-card-copy">
           <div>
@@ -320,7 +337,7 @@ app.innerHTML = `
           <img src="${logo}" alt="Role of the Year Awards logo" />
           <p class="eyebrow">Role of the Year Awards 2026</p>
           <h1 id="event-title">Voting <span>Poll</span></h1>
-          <p>Watch the nominees and cast your one vote. Your email stays private.</p>
+          <p>Watch the nominees and choose one nominee to vote for. Your email stays private.</p>
         </div>
         <div class="nominee-list">${nomineeCards}</div>
         <section class="community-section" aria-labelledby="community-title">
@@ -369,12 +386,12 @@ app.innerHTML = `
   <dialog class="modal" id="vote-dialog" aria-labelledby="vote-dialog-title">
     <form class="modal-card" id="vote-form">
       <button class="modal-close" type="button" aria-label="Close vote form" data-close-modal>×</button>
-      <p class="eyebrow">One vote per email</p>
+      <p class="eyebrow">One nominee per email</p>
       <h2 id="vote-dialog-title">Cast your vote</h2>
       <p class="modal-description" id="vote-candidate"></p>
       <label for="voter-email">Your email address</label>
       <input id="voter-email" name="email" type="email" autocomplete="email" required />
-      <p class="privacy-note">Your email is kept private and is used only to prevent repeat votes.</p>
+      <p class="privacy-note">Your email stays private and ensures you can vote for only one nominee.</p>
       <button class="button button-gold" type="submit">Submit my vote</button>
       <p class="form-feedback" id="vote-feedback" role="status" aria-live="polite"></p>
     </form>
@@ -385,7 +402,8 @@ app.innerHTML = `
       <button class="modal-close" type="button" aria-label="Close TikTok prompt" data-close-modal>×</button>
       <p class="eyebrow">Support the celebration</p>
       <h2 id="tiktok-dialog-title">Follow us on TikTok</h2>
-      <p class="modal-description">Our TikTok profile link will be added here. In the meantime, continue to meet the businesses supporting this year's awards.</p>
+      <p class="modal-description">Follow the Role of the Year Awards on TikTok, then continue to meet the businesses supporting this year's awards.</p>
+      <a class="button button-outline" href="https://www.tiktok.com/@role.of.the.year4?_r=1&_t=ZS-9ANPLDc4Y4r" target="_blank" rel="noreferrer noopener">Follow us on TikTok <span aria-hidden="true">↗</span></a>
       <button class="button button-gold" id="continue-to-adverts" type="button">Continue to advertisements <span aria-hidden="true">→</span></button>
     </div>
   </dialog>
