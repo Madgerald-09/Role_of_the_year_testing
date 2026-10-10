@@ -4,6 +4,7 @@ import sponsor3Image from "../images/Sponsor3.jpg";
 import sponsor4Image from "../images/Sponsor4.jpg";
 import advert1Image from "../images/1stadvert.jpg";
 import advert2Image from "../images/2ndadvert.png";
+import newAdvert1Image from "../images/Newadvert1.jpg";
 import advert6Video from "../videos/6thadvert.mp4";
 import sponsor1Video from "../videos/Sponsor1.mp4";
 import sponsor2Video from "../videos/Sponsor2.mp4";
@@ -77,6 +78,17 @@ const adverts: Advert[] = [
       { label: "WhatsApp", href: "https://wa.me/+2348022720944" },
       { label: "Website", href: "https://geraldportfolio-one.vercel.app/" },
     ],
+  },
+  {
+    title: "Fashion Creator",
+    subtitle: "Fashion • Style • Content Creation",
+    media: newAdvert1Image,
+    mediaType: "image",
+    points: [
+      "Creative fashion visuals, personal styling inspiration, and trend-driven content that stands out.",
+      "Build a standout identity with elegant, modern, and expressive fashion storytelling.",
+    ],
+    links: [{ label: "WhatsApp", href: "https://wa.me/message/5OBBPLQ4VR3TM1" }],
   },
   {
     title: "Dominic Fabrics",
