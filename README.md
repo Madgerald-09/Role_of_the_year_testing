@@ -29,7 +29,7 @@ The local site runs in display-only mode until the Supabase settings are added t
    supabase secrets set RESEND_API_KEY=YOUR_RESEND_API_KEY RESEND_FROM_EMAIL=awards@YOUR_VERIFIED_DOMAIN
    ```
 
-   The function uses Supabase's `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` secrets, which Supabase provides to Edge Functions. Vote and anonymous comment notifications are delivered to `madgerald2009@gmail.com`.
+   The function uses Supabase's `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` secrets, which Supabase provides to Edge Functions. Vote and anonymous comment notifications are delivered to `iammadgerald@gmail.com`.
 4. Restart the Vite server after setting `.env.local`.
 
 Vote email addresses and comments are stored in tables with no public table access. The database enforces that each normalized email address can vote for only one nominee. Public functions expose only vote totals and the 50 most recent anonymous comment texts and timestamps; comments are visible to all site visitors, so users should not include personal information. Keep `.env.local` and all service-role/Resend credentials private; only the anon key belongs in the Vite environment.
