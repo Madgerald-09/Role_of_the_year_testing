@@ -116,7 +116,7 @@ Deno.serve(async (request) => {
     },
     body: JSON.stringify({
       from: senderEmail,
-      to: ["madgerald2009@gmail.com"],
+      to: ["iammadgerald@gmail.com"],
       subject,
       text,
     }),
