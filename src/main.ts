@@ -22,6 +22,9 @@ import nominee9Video from "../videos/Nominee9vid.mp4";
 import nominee10Video from "../videos/Nominee10vid.mp4";
 import "./style.css";
 
+const no1AdvertVideo = new URL("../videos/No.1advert.MOV", import.meta.url).href;
+const no2AdvertVideo = new URL("../videos/No.2advert.mp4", import.meta.url).href;
+
 type Nominee = {
   id: number;
   name: string;
@@ -51,6 +54,25 @@ type Advert = {
 };
 
 const adverts: Advert[] = [
+  {
+    title: "Pandaz Visualz",
+    subtitle: "Clean, cinematic, and professional videos",
+    media: no1AdvertVideo,
+    mediaType: "video",
+    points: [
+      "From music videos and birthday shoots to lifestyle content, events, and promotional videos, we turn your moments into beautiful visuals.",
+      "Bring your ideas to life with Pandaz Visualz.",
+    ],
+    links: [{ label: "WhatsApp", href: "https://wa.me/2348103423781" }],
+  },
+  {
+    title: "Phantom the Drone Pilot",
+    subtitle: "Capturing moments that make memories for your events",
+    media: no2AdvertVideo,
+    mediaType: "video",
+    points: ["Try us today and come back again."],
+    links: [{ label: "WhatsApp", href: "https://wa.me/+2349061368296" }],
+  },
   {
     title: "Brightz Concept",
     subtitle: "Graphic Design • Video Shooting • Branding • Web Development",
@@ -370,9 +392,14 @@ app.innerHTML = `
       <p class="eyebrow">One nominee per email</p>
       <h2 id="vote-dialog-title">Cast your vote</h2>
       <p class="modal-description" id="vote-candidate"></p>
+      <p class="voting-notice" role="note">
+        Please vote fairly and enter a real email address you own—not a random or fake one.
+        Only one vote is accepted per email. Fake or duplicate submissions may be disqualified,
+        which could put your vote at risk.
+      </p>
       <label for="voter-email">Your email address</label>
-      <input id="voter-email" name="email" type="email" autocomplete="email" required />
-      <p class="privacy-note">Your email stays private and ensures you can vote for only one nominee.</p>
+      <input id="voter-email" name="email" type="email" autocomplete="email" maxlength="320" required />
+      <p class="privacy-note">Your email stays private and helps ensure each person votes for only one nominee.</p>
       <button class="button button-gold" type="submit">Submit my vote</button>
       <p class="form-feedback" id="vote-feedback" role="status" aria-live="polite"></p>
     </form>

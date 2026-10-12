@@ -770,11 +770,19 @@ textarea::placeholder {
 }
 
 .modal-description,
-.privacy-note {
+.privacy-note,
+.voting-notice {
   margin: 0;
   color: rgba(244, 240, 232, 0.7);
   font-size: 13px;
   line-height: 1.6;
+}
+
+.voting-notice {
+  padding: 12px;
+  border: 1px solid rgba(212, 185, 150, 0.45);
+  background: rgba(212, 185, 150, 0.08);
+  color: var(--paper);
 }
 
 .privacy-note {
